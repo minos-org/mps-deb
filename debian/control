@@ -1,0 +1,18 @@
+Source: mps
+Section: web
+Priority: extra
+Maintainer: Javier P.L. <chilicuil@ubuntu.com>
+Build-Depends: debhelper (>= 9), python-setuptools
+Build-Depends-Indep: python
+X-Python-Version: >= 2.6
+Standards-Version: 3.9.4
+Homepage: https://github.com/np1/mps
+Vcs-Git: git://github.com/minos/mps-deb.git
+Vcs-Browser: https://github.com/minos/mps-deb.git
+
+Package: mps
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}, mplayer2 | mplayer
+Description: Terminal based MP3 search, playback and download
+ mps is a command-line front-end for playing song from pleer.com, an online mp3
+ repository.

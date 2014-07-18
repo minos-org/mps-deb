@@ -1,0 +1,23 @@
+#!/usr/bin/make -f
+
+DEB_VERSION:=$(shell dpkg-parsechangelog -n1 | sed -n '/^Version: /s///p')
+DEB_UPSTREAM_VERSION:=$(shell DEB_VERSION=${DEB_VERSION}; echo $${DEB_VERSION%-*})
+DEB_UPSTREAM_VERSION:=$(shell DEB_UPSTREAM_VERSION=${DEB_UPSTREAM_VERSION}; echo $${DEB_UPSTREAM_VERSION\#*:})
+DEB_MASTER_VERSION:=$(shell DEB_UPSTREAM_VERSION=${DEB_UPSTREAM_VERSION}; echo $${DEB_UPSTREAM_VERSION\#*+git})
+
+%:
+	dh $@ --with python2 --buildsystem=python_distutils
+
+override_dh_clean:
+	dh_clean
+	rm -rf mps.egg-info src/mps.egg-info
+
+get-orig-source:
+	rm -rf debian/tmp; mkdir debian/tmp
+	cd debian/tmp; wget https://github.com/np1/mps/archive/${DEB_MASTER_VERSION}.tar.gz
+	cd debian/tmp; tar xvzf ${DEB_MASTER_VERSION}.tar.gz
+	cd debian/tmp; mv mps-* mps-${DEB_UPSTREAM_VERSION}
+	cd debian/tmp; tar cvJf mps_${DEB_UPSTREAM_VERSION}.orig.tar.xz mps-${DEB_UPSTREAM_VERSION}
+	mv debian/tmp/mps_${DEB_UPSTREAM_VERSION}.orig.tar.xz .
+	mv debian/tmp/mps-${DEB_UPSTREAM_VERSION} .
+	rm -rf debian/tmp
