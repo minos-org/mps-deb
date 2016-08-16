@@ -1,3 +1,10 @@
+mps (1:201608161055+gite0c89b-minos) precise; urgency=low
+
+  * add trusty/xenial packages into lp recipe:
+    https://code.launchpad.net/~minos-archive/+recipe/mps
+
+ -- Javier P.L. <chilicuil@ubuntu.com>  Tue, 16 Aug 2016 10:55:20 -0500
+
 mps (1:201407172304+gitbe0c89b-minos) precise; urgency=low
 
   * Initial release
